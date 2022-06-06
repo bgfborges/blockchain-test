@@ -2,8 +2,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, clone the development server:
 
+```bash
+git clone git@github.com:bgfborges/blockchain-test.git
+```
+
+Enter the cloned folder.
+```bash
+cd blockchain-test
+```
+
+Finally, run the development server:
 ```bash
 npm run dev
 # or
