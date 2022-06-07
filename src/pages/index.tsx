@@ -1,4 +1,5 @@
 import Hero from "../components/Hero"
+import UploadSection from "../components/UploadSection"
 
 const headerInfo = {
   titleOne: 'Blockchain Manager',
@@ -17,6 +18,9 @@ const headerInfo = {
 
 export default function Home() {
   return (
-    <Hero {...headerInfo} />
+    <>
+      <Hero {...headerInfo} />
+      <UploadSection />
+    </>
   )
 }
