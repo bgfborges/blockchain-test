@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { FileContext } from "../contexts/uploadFiles"
+import { FileContext } from "../contexts/uploadFile"
 import GallerySection from "../components/GallerySection"
 import Hero from "../components/Hero"
 
@@ -8,7 +8,7 @@ const headerInfo = {
     titleTwo: 'Private and Secure',
     description: '100% private. Easily stored in your own browser.',
     image: '/images/hero-background.png',
-  }
+}
 
 export default function Gallery() {
     const { images } = useContext(FileContext)

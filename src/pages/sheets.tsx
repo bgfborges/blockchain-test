@@ -1,3 +1,4 @@
+import FilesSection from "../components/FilesSection";
 import Hero from "../components/Hero";
 
 const headerInfo = {
@@ -9,8 +10,11 @@ const headerInfo = {
 
 export default function Sheets(){
     return(
-        <Hero 
-        
-       {...headerInfo} />
+        <>
+            <Hero 
+            {...headerInfo} 
+            />
+            <FilesSection />
+        </>
     )
 }
