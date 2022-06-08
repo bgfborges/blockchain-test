@@ -1,5 +1,5 @@
 import '../styles/globals.scss'
-import { FilesProvider } from '../contexts/uploadFiles'
+import { FilesProvider } from '../contexts/uploadFile'
 
 function MyApp({ Component, pageProps }) {
 

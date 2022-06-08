@@ -1,33 +1,38 @@
 import { ChangeEvent, useContext, useRef, useState } from "react"
-import { FileContext } from "../../contexts/uploadFiles"
+import { FileContext } from "../../contexts/uploadFile"
+import { checkFileType } from "../../services/uploadUtils"
 
 export default function Uploader(){
 
-    // Local URL path
-    const [fileLocalPath, setFileLocalPath] = useState<File>()
+    // Local URL path to the file
+    const [inputFile, setInputFile] = useState<File>()
 
-    const { setLocalStorageImage } = useContext(FileContext)
+    const { setLocalStorageImage, setLocalStorateCsv } = useContext(FileContext)
 
     const imgRef = useRef<HTMLImageElement>()
 
     // Get the current file local path
     const handleUploadInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFileLocalPath(e.target.files[0])
+        setInputFile(e.target.files[0])
     }
 
     // Handle the functionalities to save the path when submited
     const handleFormSubmit = (e: any) => {
         e.preventDefault()
-        setLocalStorageImage(fileLocalPath)
+        const fileType = checkFileType(inputFile)
+        if( fileType === 'png' ){
+            setLocalStorageImage(inputFile)
+        } else if( fileType === 'csv' ){
+            setLocalStorateCsv(inputFile)
+        }
     }
 
     return(
         <div className="flex justify-center mt-8">
-            <img ref={imgRef} src="" alt="" />
             <div className="rounded-lg shadow-xl bg-gray-50 lg:w-1/2">
                 <form action="" className="p-4 lg:p-6" onSubmit={handleFormSubmit}>
                     <div>
-                        <label className="inline-block mb-2 text-gray-500">Upload Files (jpg,png,svg,jpeg)</label>
+                        <label className="inline-block mb-2 text-gray-500">Upload Files (png, CSV - comma delimited)</label>
                         <div className="flex items-center justify-center w-full">
                             <label className="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
                                 <div className="flex flex-col items-center justify-center pt-7">
@@ -41,7 +46,7 @@ export default function Uploader(){
                                     <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                         Select a photo</p>
                                 </div>
-                                <input type="file" accept=".png,.svg" className="opacity-0" onChange={handleUploadInputChange} />
+                                <input type="file" accept=".png,.csv" className="opacity-0" onChange={handleUploadInputChange} />
                             </label>
                         </div>
                     </div>

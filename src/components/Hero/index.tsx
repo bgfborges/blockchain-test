@@ -10,8 +10,8 @@ interface HeroProps {
     titleTwo: string;
     description: string;
     image: string;
-    buttonOne: Button;
-    buttonTwo: Button;
+    buttonOne?: Button;
+    buttonTwo?: Button;
 }
 
 export default function Hero(props: HeroProps) {
@@ -41,22 +41,22 @@ export default function Hero(props: HeroProps) {
                             { props.description }
                         </p>
                         <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                            <div className="rounded-md shadow">
-                            <a
-                                href={ props.buttonOne.link }
-                                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                            >
-                                { props.buttonOne.label }
-                            </a>
-                            </div>
-                            <div className="mt-3 sm:mt-0 sm:ml-3">
-                            <a
-                                href={ props.buttonTwo.link }
-                                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
-                            >
-                                { props.buttonTwo.label }
-                            </a>
-                            </div>
+                            { props.buttonOne && <div className="rounded-md shadow">
+                                <a
+                                    href={ props.buttonOne.link }
+                                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                                >
+                                    { props.buttonOne.label }
+                                </a>
+                            </div> }
+                            { props.buttonTwo && <div className="mt-3 sm:mt-0 sm:ml-3">
+                                <a
+                                    href={ props.buttonTwo.link }
+                                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
+                                >
+                                    { props.buttonTwo.label }
+                                </a>
+                            </div> }
                         </div>
                         </div>
                     </main>

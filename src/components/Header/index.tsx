@@ -1,11 +1,12 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import Link from 'next/link'
 
 const navigation = [
-  { name: 'Home', href: '#' },
-  { name: 'Gallery', href: '#' },
-  { name: 'Sheets', href: '#' },
+  { name: 'Home', href: '/' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'Sheets', href: '/sheets' },
 ]
 
 export default function Header( ) {
@@ -33,9 +34,11 @@ export default function Header( ) {
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
                 {navigation.map((item) => (
-                    <a key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
-                    {item.name}
-                    </a>
+                    <Link key={item.name} href={item.href}>
+                        <a href={item.href} className="font-medium text-gray-500 hover:text-gray-900">
+                        {item.name}
+                        </a>
+                    </Link>
                 ))}
                 </div>
             </nav>
