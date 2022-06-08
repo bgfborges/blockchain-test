@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
 
 interface FileContextData {
-    storedImages: object[];
+    images: object[];
     setLocalStorageImage: (file: File) => void;
 }
 
@@ -50,7 +50,7 @@ export const FilesProvider = ({children}: filesProviderProps) => {
     }
 
     return (
-        <FileContext.Provider value={{ storedImages, setLocalStorageImage }}>
+        <FileContext.Provider value={{ images: storedImages , setLocalStorageImage }}>
             {children}
         </FileContext.Provider>
     )

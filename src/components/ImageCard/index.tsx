@@ -1,3 +1,5 @@
+// Further - make it open in lightbox when clicked
+
 interface ImageCardProps {
     src: string;
 }

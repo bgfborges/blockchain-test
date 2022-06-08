@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { FileContext } from "../contexts/uploadFiles"
 import GallerySection from "../components/GallerySection"
 import Hero from "../components/Hero"
@@ -11,15 +11,20 @@ const headerInfo = {
   }
 
 export default function Gallery() {
-    const { storedImages } = useContext(FileContext)
+    const { images } = useContext(FileContext)
+    const [renderedImages, setRenderedImages] = useState<object[]>(images)
+
+    useEffect(() => {
+        setRenderedImages(images)
+    }, [images])
     
     return (
         <>
         <Hero {...headerInfo} />
-        <GallerySection images={storedImages.map(image => ({
+        {renderedImages && <GallerySection images={renderedImages.map(image => ({
             data: image['data'],
             filename: image['filename']
-        }) )}  />
+        }) )}  />}
         </>
     )
 }
