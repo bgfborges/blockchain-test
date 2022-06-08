@@ -10,21 +10,38 @@ const headerInfo = {
     image: '/images/hero-background.png',
 }
 
+type ImageProps = {
+    filename: string;
+    data: string;
+}
+
 export default function Gallery() {
     const { images } = useContext(FileContext)
-    const [renderedImages, setRenderedImages] = useState<object[]>(images)
+    const [renderedImages, setRenderedImages] = useState<ImageProps[] | false>([])
+
+    const formatImages = (data: object[]) => {
+            
+        if(data && data.length > 0 && data.map){
+            let newData = data.map(image => ({
+                data: image['data'],
+                filename: image['filename']
+            }))
+
+            return newData
+        } else {
+            return false
+        }
+
+    }
 
     useEffect(() => {
-        setRenderedImages(images)
+        setRenderedImages(formatImages(images))
     }, [images])
     
     return (
         <>
         <Hero {...headerInfo} />
-        {renderedImages && <GallerySection images={renderedImages.map(image => ({
-            data: image['data'],
-            filename: image['filename']
-        }) )}  />}
+        {renderedImages && <GallerySection images={renderedImages} /> }
         </>
     )
 }

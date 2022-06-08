@@ -42,11 +42,14 @@ async function getAmountRows(file: File){
     return lines    
 }
 
-function setLocalStorateCsv(file: File) {
+async function setLocalStorateCsv(file: File) {
     // Set the new csv to the old array in local state
     const localStorageCsvs = JSON.parse( localStorage.getItem('csvs') || "[]" )
     
     const reader = new FileReader()
+
+    // Define Amount of Rows of this CSV
+    const amountRows = await getAmountRows(file)
 
     reader.addEventListener('load', () => {
         // Check if the result is a string and not an ArrayBuffer
@@ -56,7 +59,7 @@ function setLocalStorateCsv(file: File) {
                 filename: file.name,
                 size: file.size,
                 data: reader.result,
-                amountRows: getAmountRows(file)
+                amountRows,
             })
             localStorage.setItem('csvs',  JSON.stringify( localStorageCsvs ))
         }
