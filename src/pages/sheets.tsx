@@ -10,9 +10,15 @@ const headerInfo = {
     image: '/images/hero-background.png',
 }
 
+type CsvProps = {
+    data: string;
+    filename: string;
+    amountRows: string;
+}
+
 export default function Sheets(){
     const { csvFiles } = useContext(FileContext)
-    const [ storedCsvFiles, setStoredCsvFiles ] = useState<object[] | false>(csvFiles)
+    const [ storedCsvFiles, setStoredCsvFiles ] = useState<CsvProps[] | false>([])
 
     const formatCsvs = (data: object[]) => {
             
@@ -39,7 +45,7 @@ export default function Sheets(){
             <Hero 
             {...headerInfo} 
             />
-            { storedCsvFiles && <FilesSection storedCsvFiles={storedCsvFiles} /> }
+            { storedCsvFiles && <FilesSection csvFiles={storedCsvFiles} /> }
         </>
     )
 }
