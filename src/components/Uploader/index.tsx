@@ -27,7 +27,7 @@ export default function Uploader(){
             <div className="rounded-lg shadow-xl bg-gray-50 lg:w-1/2">
                 <form action="" className="p-4 lg:p-6" onSubmit={handleFormSubmit}>
                     <div>
-                        <label className="inline-block mb-2 text-gray-500">Upload Files (jpg,png,svg,jpeg)</label>
+                        <label className="inline-block mb-2 text-gray-500">Upload Files (png, csv (comma delimited))</label>
                         <div className="flex items-center justify-center w-full">
                             <label className="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
                                 <div className="flex flex-col items-center justify-center pt-7">
