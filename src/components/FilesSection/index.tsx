@@ -4,7 +4,7 @@ interface FileSectionProps {
     csvFiles: {
         data: string,
         filename: string,
-        amountRows: string;
+        amountRows: string,
     }[];
 }
 
