@@ -1,10 +1,11 @@
+import { exit } from 'process';
 import { createContext, ReactNode, useEffect, useState } from 'react'
 
 interface FileContextData {
     images: object[];
     csvFiles: object[];
     setLocalStorageImage: (file: File) => void;
-    setLocalStorateCsv: (file: File) => void;
+    setLocalStorateCsv: (file: File) => Promise<boolean>;
 }
 
 export const FileContext = createContext<FileContextData>(
@@ -38,11 +39,20 @@ function setLocalStorageImage(file: File) {
 }
 
 async function getAmountRows(file: File){
-    var lines = (await file.text()).split("\n").length;
-    return lines    
+    var lines = (await file.text()).split("\n");
+    var firstElement = lines.filter( line => line.split(',')[0].length > 0 )
+    return firstElement.length
 }
 
 async function setLocalStorateCsv(file: File) {
+
+    const checkSemiColon = (await file.text()).split(';').length > 1
+
+    if(checkSemiColon){
+        alert('File not permitted. Only CSV with Comma Delimited.')
+        return false
+    }
+
     // Set the new csv to the old array in local state
     const localStorageCsvs = JSON.parse( localStorage.getItem('csvs') || "[]" )
     
@@ -68,6 +78,8 @@ async function setLocalStorateCsv(file: File) {
     if (file) {
         reader.readAsDataURL(file)
     }
+
+    return true
 }
 
 interface filesProviderProps {

@@ -1,8 +1,11 @@
+import { useRouter } from "next/router"
 import { ChangeEvent, useContext, useRef, useState } from "react"
 import { FileContext } from "../../contexts/uploadFile"
 import { checkFileType } from "../../services/uploadUtils"
 
 export default function Uploader(){
+
+    const route = useRouter()
 
     // Local URL path to the file
     const [inputFile, setInputFile] = useState<File>()
@@ -18,20 +21,28 @@ export default function Uploader(){
         setInputFile(e.target.files[0])
     }
 
+    // Use the window to redirect because, as long as the data is in localStorage and updating the page will permit access the data
+    const redirectAfterUpload = (route: string) => {
+        return window.location.href = route
+    }
+    
     // Handle the functionalities to save the path when submited
-    const handleFormSubmit = (e: any) => {
+    const handleFormSubmit = async (e: any) => {
         e.preventDefault()
-        const fileType = checkFileType(inputFile)
-        if( fileType === 'png' ){
-            setLocalStorageImage(inputFile)
-            
-            // Use the window to redirect because, as long as the data is in localStorage and updating the page will permit access the data
-            window.location.href = '/gallery'
-        } else if( fileType === 'csv' ){
-            setLocalStorateCsv(inputFile)
-
-            window.location.href = '/sheets'
-        }
+            if(!inputFile){
+                alert('You cant upload without a file in input')
+                return
+            }
+            const fileType = checkFileType(inputFile)
+            if( fileType === 'png' ){
+                setLocalStorageImage(inputFile)
+                redirectAfterUpload('/gallery')
+            } else if( fileType === 'csv' ){
+                const responseSetLocalCsv = await setLocalStorateCsv(inputFile)
+                if(responseSetLocalCsv){
+                    redirectAfterUpload('/sheets')
+                }
+            }
     }
 
     // Handle the input change when the user cancel this file
@@ -61,7 +72,7 @@ export default function Uploader(){
                                         {inputFile?.name ? inputFile.name : 'Select a File' }
                                     </p>
                                 </div>
-                                <input ref={imageInputRef} type="file" accept=".png,.csv" className="opacity-0" onChange={handleUploadInputChange} />
+                                <input aria-label="input-file" ref={imageInputRef} type="file" accept=".png,.csv" className="opacity-0" onChange={handleUploadInputChange} />
                             </label>
                         </div>
                     </div>
