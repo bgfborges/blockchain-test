@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+You can see in production (with a basic CI/CD): https://blockchain-test-one.vercel.app/
+
 First, clone the development server:
 
 ```bash
