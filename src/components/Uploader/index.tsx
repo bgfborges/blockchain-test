@@ -18,19 +18,25 @@ export default function Uploader(){
         setInputFile(e.target.files[0])
     }
 
+    // Use the window to redirect because, as long as the data is in localStorage and updating the page will permit access the data
+    const redirectAfterUpload = (route: string) => {
+        return window.location.href = route
+    }
+    
     // Handle the functionalities to save the path when submited
     const handleFormSubmit = (e: any) => {
         e.preventDefault()
+        if(!inputFile){
+            alert('You cant upload without a file in input')
+            return
+        }
         const fileType = checkFileType(inputFile)
         if( fileType === 'png' ){
             setLocalStorageImage(inputFile)
-            
-            // Use the window to redirect because, as long as the data is in localStorage and updating the page will permit access the data
-            window.location.href = '/gallery'
+            redirectAfterUpload('/gallery')
         } else if( fileType === 'csv' ){
             setLocalStorateCsv(inputFile)
-
-            window.location.href = '/sheets'
+            redirectAfterUpload('/sheets')
         }
     }
 
@@ -61,7 +67,7 @@ export default function Uploader(){
                                         {inputFile?.name ? inputFile.name : 'Select a File' }
                                     </p>
                                 </div>
-                                <input ref={imageInputRef} type="file" accept=".png,.csv" className="opacity-0" onChange={handleUploadInputChange} />
+                                <input aria-label="input-file" ref={imageInputRef} type="file" accept=".png,.csv" className="opacity-0" onChange={handleUploadInputChange} />
                             </label>
                         </div>
                     </div>
